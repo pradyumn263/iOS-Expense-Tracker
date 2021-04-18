@@ -13,6 +13,10 @@
 		792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */; };
 		792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */; };
 		79263200262C0944004FA180 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631FF262C0944004FA180 /* CalendarViewModel.swift */; };
+		79263202262C0BCD004FA180 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263201262C0BCD004FA180 /* CustomTabBar.swift */; };
+		79263204262C0C75004FA180 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263203262C0C75004FA180 /* HomeView.swift */; };
+		79263206262C0C9F004FA180 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263205262C0C9F004FA180 /* StatsView.swift */; };
+		79263208262C0CBC004FA180 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263207262C0CBC004FA180 /* AddTransactionView.swift */; };
 		796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */; };
 		796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC94A262AD4A2008692B7 /* ContentView.swift */; };
 		796EC94D262AD4A3008692B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 796EC94C262AD4A3008692B7 /* Assets.xcassets */; };
@@ -26,6 +30,10 @@
 		792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+getFormatter.swift"; sourceTree = "<group>"; };
 		792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+IntervalOf.swift"; sourceTree = "<group>"; };
 		792631FF262C0944004FA180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		79263201262C0BCD004FA180 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		79263203262C0C75004FA180 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		79263205262C0C9F004FA180 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		79263207262C0CBC004FA180 /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
 		796EC945262AD4A2008692B7 /* RupeeRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RupeeRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RupeeRepoApp.swift; sourceTree = "<group>"; };
 		796EC94A262AD4A2008692B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +75,11 @@
 		792631F3262C08B8004FA180 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				796EC94A262AD4A2008692B7 /* ContentView.swift */,
+				79263201262C0BCD004FA180 /* CustomTabBar.swift */,
+				79263203262C0C75004FA180 /* HomeView.swift */,
+				79263207262C0CBC004FA180 /* AddTransactionView.swift */,
+				79263205262C0C9F004FA180 /* StatsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -103,7 +116,6 @@
 				792631F2262C08B1004FA180 /* Model */,
 				792631F1262C089F004FA180 /* Extensions */,
 				796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */,
-				796EC94A262AD4A2008692B7 /* ContentView.swift */,
 				796EC94C262AD4A3008692B7 /* Assets.xcassets */,
 				796EC951262AD4A3008692B7 /* Info.plist */,
 				796EC94E262AD4A3008692B7 /* Preview Content */,
@@ -188,12 +200,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79263206262C0C9F004FA180 /* StatsView.swift in Sources */,
 				79263200262C0944004FA180 /* CalendarViewModel.swift in Sources */,
 				792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */,
 				792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */,
+				79263204262C0C75004FA180 /* HomeView.swift in Sources */,
 				796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */,
+				79263202262C0BCD004FA180 /* CustomTabBar.swift in Sources */,
 				792631FC262C0901004FA180 /* NumberFormatter+Currency.swift in Sources */,
 				792631FA262C0901004FA180 /* Calendar+generateDates.swift in Sources */,
+				79263208262C0CBC004FA180 /* AddTransactionView.swift in Sources */,
 				796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */,
 				792631FB262C0901004FA180 /* Date+isSameDateAs.swift in Sources */,
 			);

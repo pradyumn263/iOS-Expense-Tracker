@@ -11,8 +11,17 @@ extension NumberFormatter {
     static func getCurrencyFormatter(currency: String) ->  NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
+        formatter.maximumFractionDigits = 1
         formatter.currencySymbol = currency
+        return formatter
+    }
+    
+    static func getPercentageFormatter() -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumIntegerDigits = 3
+        formatter.maximumFractionDigits = 2
         return formatter
     }
 }
