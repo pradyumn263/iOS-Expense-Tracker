@@ -12,6 +12,7 @@
 		792631FC262C0901004FA180 /* NumberFormatter+Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F7262C0901004FA180 /* NumberFormatter+Currency.swift */; };
 		792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */; };
 		792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */; };
+		79263200262C0944004FA180 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631FF262C0944004FA180 /* CalendarViewModel.swift */; };
 		796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */; };
 		796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC94A262AD4A2008692B7 /* ContentView.swift */; };
 		796EC94D262AD4A3008692B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 796EC94C262AD4A3008692B7 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		792631F7262C0901004FA180 /* NumberFormatter+Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Currency.swift"; sourceTree = "<group>"; };
 		792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+getFormatter.swift"; sourceTree = "<group>"; };
 		792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+IntervalOf.swift"; sourceTree = "<group>"; };
+		792631FF262C0944004FA180 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		796EC945262AD4A2008692B7 /* RupeeRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RupeeRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RupeeRepoApp.swift; sourceTree = "<group>"; };
 		796EC94A262AD4A2008692B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		792631F4262C08BF004FA180 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				792631FF262C0944004FA180 /* CalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79263200262C0944004FA180 /* CalendarViewModel.swift in Sources */,
 				792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */,
 				792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */,
 				796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */,
