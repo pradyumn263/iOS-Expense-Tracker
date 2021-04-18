@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		792631FA262C0901004FA180 /* Calendar+generateDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F5262C0900004FA180 /* Calendar+generateDates.swift */; };
+		792631FB262C0901004FA180 /* Date+isSameDateAs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F6262C0900004FA180 /* Date+isSameDateAs.swift */; };
+		792631FC262C0901004FA180 /* NumberFormatter+Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F7262C0901004FA180 /* NumberFormatter+Currency.swift */; };
+		792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */; };
+		792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */; };
 		796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */; };
 		796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC94A262AD4A2008692B7 /* ContentView.swift */; };
 		796EC94D262AD4A3008692B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 796EC94C262AD4A3008692B7 /* Assets.xcassets */; };
@@ -14,6 +19,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		792631F5262C0900004FA180 /* Calendar+generateDates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+generateDates.swift"; sourceTree = "<group>"; };
+		792631F6262C0900004FA180 /* Date+isSameDateAs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+isSameDateAs.swift"; sourceTree = "<group>"; };
+		792631F7262C0901004FA180 /* NumberFormatter+Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+Currency.swift"; sourceTree = "<group>"; };
+		792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+getFormatter.swift"; sourceTree = "<group>"; };
+		792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+IntervalOf.swift"; sourceTree = "<group>"; };
 		796EC945262AD4A2008692B7 /* RupeeRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RupeeRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RupeeRepoApp.swift; sourceTree = "<group>"; };
 		796EC94A262AD4A2008692B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,6 +43,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		792631F1262C089F004FA180 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				792631F5262C0900004FA180 /* Calendar+generateDates.swift */,
+				792631F9262C0901004FA180 /* Calendar+IntervalOf.swift */,
+				792631F6262C0900004FA180 /* Date+isSameDateAs.swift */,
+				792631F8262C0901004FA180 /* DateFormatter+getFormatter.swift */,
+				792631F7262C0901004FA180 /* NumberFormatter+Currency.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		792631F2262C08B1004FA180 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		792631F3262C08B8004FA180 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		792631F4262C08BF004FA180 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		796EC93C262AD4A2008692B7 = {
 			isa = PBXGroup;
 			children = (
@@ -52,6 +95,10 @@
 		796EC947262AD4A2008692B7 /* RupeeRepo */ = {
 			isa = PBXGroup;
 			children = (
+				792631F4262C08BF004FA180 /* ViewModel */,
+				792631F3262C08B8004FA180 /* View */,
+				792631F2262C08B1004FA180 /* Model */,
+				792631F1262C089F004FA180 /* Extensions */,
 				796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */,
 				796EC94A262AD4A2008692B7 /* ContentView.swift */,
 				796EC94C262AD4A3008692B7 /* Assets.xcassets */,
@@ -138,8 +185,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */,
+				792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */,
 				796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */,
+				792631FC262C0901004FA180 /* NumberFormatter+Currency.swift in Sources */,
+				792631FA262C0901004FA180 /* Calendar+generateDates.swift in Sources */,
 				796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */,
+				792631FB262C0901004FA180 /* Date+isSameDateAs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
