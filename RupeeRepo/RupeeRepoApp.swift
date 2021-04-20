@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct RupeeRepoApp: App {
+    @ObservedObject var calendarManager = CalendarViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(calendarManager)
         }
     }
 }

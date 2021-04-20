@@ -7,133 +7,96 @@
 
 import SwiftUI
 
-var tabs = ["home", "add", "stats"]
+enum availableTabs: String, CaseIterable {
+    case home = "home"
+    case addTransaction = "add"
+    case stats = "stats"
+}
 
 struct CustomTabBar: View {
     
-    @State var selectedTab = "home"
+    @State var selectedTab: availableTabs = .home
     @State var edge = UIApplication.shared.windows.first?.safeAreaInsets
+    @EnvironmentObject var calendarManager: CalendarViewModel
+    
+    var dayFormatter = DateFormatter.getDayFormatter
+    var dateFormatter = DateFormatter.getDateFormatter
     
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                HStack {
+        VStack(spacing: 0) {
+            HStack (spacing: 6) {
+                ForEach (0..<calendarManager.getCurrentWeekArray.count) { index in
                     VStack {
-                        Text("Mon")
+                        Text("\(dayFormatter.string(from: calendarManager.getCurrentWeekArray[index]))")
                             .font(.caption)
-                        Text("11")
+                        Text("\(dateFormatter.string(from: calendarManager.getCurrentWeekArray[index]))")
                     }
                     .foregroundColor(Color("text-primary"))
-                    .frame(width: geometry.size.width/8, height: geometry.size.width/8)
-                    
-                    
-                    VStack {
-                        Text("Tue")
-                            .font(.caption)
-                        Text("12")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
-                    
-                    VStack {
-                        Text("Wed")
-                            .font(.caption)
-                        Text("13")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
-                    
-                    VStack {
-                        Text("Thu")
-                            .font(.caption)
-                        Text("14")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .aspectRatio(1, contentMode: .fit)
                     .background(
                         RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(Color("green-medium"))
+                            .foregroundColor(calendarManager.currentSelectedDate.isTheSameDate(as: calendarManager.currentWeekDatesArray[index]) ?  Color("green-medium") : Color("bg-secondary"))
                     )
-                    
-                    VStack {
-                        Text("Fri")
-                            .font(.caption)
-                        Text("15")
+                    .onTapGesture {
+                        calendarManager.currentSelectedDate = calendarManager.currentWeekDatesArray[index]
+                        
                     }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
-                    
-                    VStack {
-                        Text("Sat")
-                            .font(.caption)
-                        Text("16")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
-                    
-                    VStack {
-                        Text("Sun")
-                            .font(.caption)
-                        Text("17")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(width:  geometry.size.width/8, height:  geometry.size.width/8)
-                } // :- CALENDAR ROW
-                .padding(.top, 5)
-                .padding(.bottom, 5)
-                .background(
-                    Rectangle()
-                        .foregroundColor(Color("bg-secondary"))
-                        .frame(width: 1000, height: geometry.size.width/6.5)
-                        .overlay(
-                            Rectangle()
-                                .stroke(lineWidth: 1)
-                                .foregroundColor(Color("stroke"))
-                        )
-                    )
-                .zIndex(100)
-            
-                ZStack (alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                TabView(selection: $selectedTab) {
-                    HomeView()
-                        .tag("home")
-                    
-                    AddTransactionView()
-                        .tag("add")
-                    
-                    StatsView()
-                        .tag("stats")
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .ignoresSafeArea(.all, edges: .bottom)
+            } // :- CALENDAR ROW
+            .padding(.top, 5)
+            .padding(.bottom, 5)
+            .padding(.horizontal, 5)
+            .background(
+                Rectangle()
+                    .foregroundColor(Color("bg-secondary"))
+                    .frame(width: 1000)
+                    .overlay(
+                        Rectangle()
+                            .stroke(lineWidth: 1)
+                            .foregroundColor(Color("stroke"))
+                    )
+            )
+            .zIndex(1)
+            
+            ZStack (alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                 
+                switch (selectedTab) {
+                case .home:
+                    HomeView()
+                        .padding(.horizontal, 10)
+                case .addTransaction:
+                    AddTransactionView()
+                case .stats:
+                    StatsView()
+                }
                 
                 HStack (alignment: .firstTextBaseline ,spacing: 20) {
                     Spacer(minLength: 0)
                     Image(systemName: "house.fill")
                         .font(.title)
                         .onTapGesture {
-                            selectedTab = "home"
+                            selectedTab = .home
                         }
-                        .foregroundColor(selectedTab == "home" ? Color("green-medium") : Color("text-secondary"))
+                        .foregroundColor(selectedTab == .home ? Color("green-medium") : Color("text-secondary"))
                     Spacer(minLength: 0)
-
+                    
                     Image(systemName: "plus.app.fill")
-                        .foregroundColor(selectedTab == "add" ? Color("green-medium") : Color("text-secondary"))
+                        .foregroundColor(selectedTab == .addTransaction ? Color("green-medium") : Color("text-secondary"))
                         .font(.title)
                         .onTapGesture {
-                            selectedTab = "add"
+                            selectedTab = .addTransaction
                         }
                     Spacer(minLength: 0)
-
+                    
                     Image(systemName: "chart.bar.xaxis")
                         .font(.title)
                         .onTapGesture {
-                            selectedTab = "stats"
+                            selectedTab = .stats
                         }
-                        .foregroundColor(selectedTab == "stats" ? Color("green-medium") : Color("text-secondary"))
+                        .foregroundColor(selectedTab == .stats ? Color("green-medium") : Color("text-secondary"))
                     Spacer(minLength: 0)
-
+                    
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
@@ -144,17 +107,16 @@ struct CustomTabBar: View {
                         .frame(height: 96)
                         .shadow(color: Color(.black).opacity(0.4), radius: 5)
                 )
-                    
-                
             }
         }
     }
-}
+    
 }
 
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomTabBar()
             .preferredColorScheme(.dark)
+            .environmentObject(CalendarViewModel())
     }
 }

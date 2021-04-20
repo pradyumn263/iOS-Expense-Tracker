@@ -6,18 +6,86 @@
 //
 
 import SwiftUI
+import Foundation
+
+enum currentIndex: Int {
+    case zero = 0
+    case one = 1
+    case two = 2
+    case three = 3
+    case four = 4
+    case five = 5
+    case six = 6
+}
+
+enum SwipeHVDirection: String {
+    case left, right, up, down, none
+}
+
+func detectDirection(value: DragGesture.Value) -> SwipeHVDirection {
+if value.startLocation.x < value.location.x - 24 {
+            return .left
+          }
+          if value.startLocation.x > value.location.x + 24 {
+            return .right
+          }
+          if value.startLocation.y < value.location.y - 24 {
+            return .down
+          }
+          if value.startLocation.y > value.location.y + 24 {
+            return .up
+          }
+  return .none
+  }
 
 struct HomeView: View {
-    
+    @EnvironmentObject var calendarManager: CalendarViewModel
+    var generator = UINotificationFeedbackGenerator()
     var body: some View {
         VStack {
-            Spacer(minLength: 100)
-           OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+            testView(currDate: calendarManager.currentSelectedDate)
+        }
+        .animation(.interactiveSpring())
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    let direction = detectDirection(value: value)
+                    if direction == .left {
+                        calendarManager.selectPreviousDate()
+                    }
+                    if direction == .right {
+                        calendarManager.selectNextDate()
+                    }
+                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                    impactHeavy.impactOccurred()
+                }
+        )
+    }
+}
+
+struct testView: View {
+    var currDate: Date
+    var body: some View {
+        ScrollView (showsIndicators: false) {
+//            Spacer(minLength: 400)
+            HStack {
+                Text("Overview")
+                    .font(.title)
+                    .foregroundColor(Color("text-primary"))
+                    .bold()
+                    .padding(.top)
+                Spacer()
+            }
             
             OverviewCardView(imageName: "arrow.up", colorName: "green-medium", title: "Today's Income", amount: 1600, percentAmount: 41, captionLine: "% of monthly income")
             
             OverviewCardView(imageName: "arrow.up", colorName: "green-medium", title: "Today's Income", amount: 13243, percentAmount: 90, captionLine: "% of monthly income")
-            Spacer(minLength: 0)
+            OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+            OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+            OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+            OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+            OverviewCardView(imageName: "arrow.down", colorName: "red-medium", title: "Today's Expense", amount: 1552, percentAmount: 23, captionLine: "% of monthly expense")
+//            Spacer(minLength: 500)
         }
     }
 }
@@ -44,9 +112,9 @@ struct OverviewCardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
                 .foregroundColor(Color("bg-secondary"))
-                .frame(width: 360, height: 105)
+                .frame(maxWidth: .infinity, idealHeight: 90)
 
-            HStack {
+            HStack (alignment: .bottom) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 60, height: 60)
@@ -56,7 +124,7 @@ struct OverviewCardView: View {
                         .foregroundColor(.white)
                         
                 }
-                .padding(.leading, 30)
+                .padding(.leading)
                 
                 VStack (alignment: .leading) {
                     HStack {
@@ -69,7 +137,6 @@ struct OverviewCardView: View {
                             .bold()
                 
                     }
-                    .padding(.trailing, 30)
                     HStack {
                         Text("\(formatter2.string(from: NSNumber(value: amount))!)")
                             .bold()
@@ -79,7 +146,6 @@ struct OverviewCardView: View {
                             .font(.caption2)
                             .foregroundColor(Color("text-secondary"))
                     }
-                    .padding(.trailing, 30)
 
                     ZStack {
                         RoundedRectangle(cornerRadius: 25)
@@ -90,16 +156,29 @@ struct OverviewCardView: View {
                             .offset(x: -calculatedOffset)
                             .frame(width: CGFloat(calculatedWidth), height: 10)
                     }
+                    .frame(maxWidth: .infinity)
+                    .aspectRatio(contentMode: .fit)
                 }
+                .padding(.trailing)
+
             }
         }
     }
 }
 
+struct HomeViewPreviewContainer_2 : View {
+     @State private var value = 0
+
+     var body: some View {
+          HomeView()
+            .environmentObject(CalendarViewModel())
+     }
+}
+
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeViewPreviewContainer_2()
             .preferredColorScheme(.dark)
-            
+            .environmentObject(CalendarViewModel())
     }
 }

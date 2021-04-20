@@ -16,6 +16,7 @@ class CalendarViewModel: ObservableObject {
     
     init() {
         currentDate = Date()
+        currentSelectedDate = Date()
         calendar = Calendar.current
         currentWeek = calendar.component(.weekOfYear, from: currentDate)
         currentMonth = calendar.component(.month, from: currentDate)
@@ -25,13 +26,16 @@ class CalendarViewModel: ObservableObject {
         currentMonthDatesArray = calendar.daysWithSameMonth(as: currentDate)
         currentYearsDatesArray = calendar.daysWithSameYear(as: currentDate)
         print("\(currentWeekDatesArray)")
+        
         let formatter = DateFormatter.getddmmyyFormatter
         print("\(formatter.string(from: currentWeekDatesArray[0]))")
+        
     }
     
     @Published var currentWeekDatesArray: [Date]
     @Published var currentMonthDatesArray: [Date]
     @Published var currentYearsDatesArray: [Date]
+    @Published var currentSelectedDate: Date
     
     var getCurrentWeekArray: [Date] {
         return currentWeekDatesArray
@@ -43,6 +47,15 @@ class CalendarViewModel: ObservableObject {
     
     var getCurrentYearDateArray: [Date] {
         return currentYearsDatesArray
+    }
+    
+    var getIndexOfCurrentSelectedDate: Int {
+        for (index, element) in currentWeekDatesArray.enumerated() {
+            if (element.isTheSameDate(as: currentSelectedDate)) {
+                return index
+            }
+        }
+        return 0
     }
     
     func moveAllArraysToThis(date: Date) {
@@ -62,6 +75,7 @@ class CalendarViewModel: ObservableObject {
     
     func getBackToCurrentWeek () {
         let currentDate = Date()
+        currentSelectedDate = currentDate
         moveAllArraysToThis(date: currentDate)
     }
     
@@ -70,5 +84,31 @@ class CalendarViewModel: ObservableObject {
         let newFirstDate = calendar.date(byAdding: .day, value: -1, to: currentLastDate)!
         
         moveAllArraysToThis(date: newFirstDate)
+    }
+    
+    func selectPreviousDate () {
+        let index = getIndexOfCurrentSelectedDate
+        
+        if (index == 0) {
+            gotoPreviousWeek()
+            currentSelectedDate = currentWeekDatesArray.last!
+        }
+        else
+        {
+            currentSelectedDate = currentWeekDatesArray[index-1]
+        }
+    }
+    
+    func selectNextDate() {
+        let index = getIndexOfCurrentSelectedDate
+        if (index == 6)
+        {
+            gotoNextWeek()
+            currentSelectedDate = currentWeekDatesArray.first!
+        }
+        else
+        {
+            currentSelectedDate = currentWeekDatesArray[index + 1] 
+        }
     }
 }

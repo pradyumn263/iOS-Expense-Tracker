@@ -15,6 +15,8 @@ struct CustomBottomRR: Shape {
 }
 
 struct ContentView: View {
+    var dayFormatter = DateFormatter.getDayFormatter
+    var dateFormatter = DateFormatter.getDateFormatter
     
     init() {
         let appearance = UINavigationBarAppearance()
@@ -27,7 +29,22 @@ struct ContentView: View {
         UINavigationBar.appearance().barTintColor = UIColor(Color("bg-primary"))
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
+        
     }
+
+    var titleBarDateFormatter = DateFormatter.getMonthAndDateFormatter
+    @EnvironmentObject var calendarManager: CalendarViewModel
+
+    var navigationBarTitle: String {
+        var temp: String = ""
+        if calendarManager.currentSelectedDate.isTheSameDate(as: Date()) {
+            temp = "Today, "
+        }
+        temp += titleBarDateFormatter.string(from: calendarManager.currentSelectedDate)
+        return temp
+    }
+    
+    var monthFormatter = DateFormatter.getMonthFormatter
     
     var body: some View {
         NavigationView {
@@ -35,12 +52,12 @@ struct ContentView: View {
                 Color("bg-primary")
                     .edgesIgnoringSafeArea(.all)
                 
-               CustomTabBar()
-                .navigationBarTitle("Today, 14 April")
+                CustomTabBar()
+                .navigationBarTitle(navigationBarTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Apr".uppercased())
+                        Text("\(monthFormatter.string(from: calendarManager.currentWeekDatesArray[0]))".uppercased())
                             .font(.caption2)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
@@ -48,9 +65,13 @@ struct ContentView: View {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(Color("bg-secondary"))
                             )
+                            .onTapGesture(count: 2) {
+                                calendarManager.getBackToCurrentWeek()
+                            }
+
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Text("Apr".uppercased())
+                        Text("\(monthFormatter.string(from: calendarManager.currentWeekDatesArray[6]))".uppercased())
                             .font(.caption2)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
@@ -58,7 +79,12 @@ struct ContentView: View {
                                 RoundedRectangle(cornerRadius: 5)
                                     .foregroundColor(Color("bg-secondary"))
                             )
+                            .onTapGesture(count: 2) {
+                                calendarManager.getBackToCurrentWeek()
+                            }
+
                     }
+
                 }
             }
         }
@@ -70,5 +96,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
+            .environmentObject(CalendarViewModel())
     }
 }
