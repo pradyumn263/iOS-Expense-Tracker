@@ -24,47 +24,11 @@ struct CustomTabBar: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack (spacing: 6) {
-                ForEach (0..<calendarManager.getCurrentWeekArray.count) { index in
-                    VStack {
-                        Text("\(dayFormatter.string(from: calendarManager.getCurrentWeekArray[index]))")
-                            .font(.caption)
-                        Text("\(dateFormatter.string(from: calendarManager.getCurrentWeekArray[index]))")
-                    }
-                    .foregroundColor(Color("text-primary"))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .aspectRatio(1, contentMode: .fit)
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(calendarManager.currentSelectedDate.isTheSameDate(as: calendarManager.currentWeekDatesArray[index]) ?  Color("green-medium") : Color("bg-secondary"))
-                    )
-                    .onTapGesture {
-                        calendarManager.currentSelectedDate = calendarManager.currentWeekDatesArray[index]
-                        
-                    }
-                }
-            } // :- CALENDAR ROW
-            .padding(.top, 5)
-            .padding(.bottom, 5)
-            .padding(.horizontal, 5)
-            .background(
-                Rectangle()
-                    .foregroundColor(Color("bg-secondary"))
-                    .frame(width: 1000)
-                    .overlay(
-                        Rectangle()
-                            .stroke(lineWidth: 1)
-                            .foregroundColor(Color("stroke"))
-                    )
-            )
-            .zIndex(1)
-            
             ZStack (alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                 
                 switch (selectedTab) {
                 case .home:
                     HomeView()
-                        .padding(.horizontal, 10)
                 case .addTransaction:
                     AddTransactionView()
                 case .stats:

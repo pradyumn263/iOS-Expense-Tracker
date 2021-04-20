@@ -50,6 +50,12 @@ extension DateFormatter {
         return formatter
     }
     
+    static var getDateandTimeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy hh:mm a"
+        return formatter
+    }
+    
     
     
 }

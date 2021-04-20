@@ -14,6 +14,8 @@ struct StatsView: View {
             Text("Stats View")
             Spacer()
         }
+        .navigationBarHidden(true)
+
     }
 }
 
