@@ -236,6 +236,10 @@ struct OverviewCardView: View {
     @State var amount: Double
     @State var percentAmount: Double
     @State var captionLine: String
+    
+    @FetchRequest(sortDescriptors: [])
+    var tasks: FetchedResults<TransactionLog>
+
 
     var calculatedOffset: CGFloat {
         CGFloat(125 - (((percentAmount/100)*250)/2))

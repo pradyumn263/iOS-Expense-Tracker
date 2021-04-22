@@ -10,11 +10,15 @@ import SwiftUI
 @main
 struct RupeeRepoApp: App {
     @ObservedObject var calendarManager = CalendarViewModel()
+    let persistenceContainer = PersistenceController.shared
+
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(calendarManager)
+                .environment(\.managedObjectContext, persistenceContainer.container.viewContext)
+
         }
     }
 }

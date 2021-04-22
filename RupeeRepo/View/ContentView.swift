@@ -34,7 +34,8 @@ struct ContentView: View {
 
     var titleBarDateFormatter = DateFormatter.getMonthAndDateFormatter
     @EnvironmentObject var calendarManager: CalendarViewModel
-
+    
+    
     var navigationBarTitle: String {
         var temp: String = ""
         if calendarManager.currentSelectedDate.isTheSameDate(as: Date()) {

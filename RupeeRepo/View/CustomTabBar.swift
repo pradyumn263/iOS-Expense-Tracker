@@ -23,56 +23,60 @@ struct CustomTabBar: View {
     var dateFormatter = DateFormatter.getDateFormatter
     
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack (alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                
-                switch (selectedTab) {
+        VStack {
+            switch (selectedTab) {
                 case .home:
                     HomeView()
                 case .addTransaction:
                     AddTransactionView()
                 case .stats:
                     StatsView()
-                }
+            }
+            VStack(spacing: 0) {
                 
-                HStack (alignment: .firstTextBaseline ,spacing: 20) {
-                    Spacer(minLength: 0)
-                    Image(systemName: "house.fill")
-                        .font(.title)
-                        .onTapGesture {
-                            selectedTab = .home
-                        }
-                        .foregroundColor(selectedTab == .home ? Color("green-medium") : Color("text-secondary"))
-                    Spacer(minLength: 0)
-                    
-                    Image(systemName: "plus.app.fill")
-                        .foregroundColor(selectedTab == .addTransaction ? Color("green-medium") : Color("text-secondary"))
-                        .font(.title)
-                        .onTapGesture {
-                            selectedTab = .addTransaction
-                        }
-                    Spacer(minLength: 0)
-                    
-                    Image(systemName: "chart.bar.xaxis")
-                        .font(.title)
-                        .onTapGesture {
-                            selectedTab = .stats
-                        }
-                        .foregroundColor(selectedTab == .stats ? Color("green-medium") : Color("text-secondary"))
-                    Spacer(minLength: 0)
-                    
+                ZStack (alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                    HStack (alignment: .firstTextBaseline ,spacing: 20) {
+                        Spacer(minLength: 0)
+                        Image(systemName: "house.fill")
+                            .font(.title)
+                            .onTapGesture {
+                                selectedTab = .home
+                            }
+                            .foregroundColor(selectedTab == .home ? Color("green-medium") : Color("text-secondary"))
+                        Spacer(minLength: 0)
+                        
+                        Image(systemName: "plus.app.fill")
+                            .foregroundColor(selectedTab == .addTransaction ? Color("green-medium") : Color("text-secondary"))
+                            .font(.title)
+                            .onTapGesture {
+                                selectedTab = .addTransaction
+                            }
+                        Spacer(minLength: 0)
+                        
+                        Image(systemName: "chart.bar.xaxis")
+                            .font(.title)
+                            .onTapGesture {
+                                selectedTab = .stats
+                            }
+                            .foregroundColor(selectedTab == .stats ? Color("green-medium") : Color("text-secondary"))
+                        Spacer(minLength: 0)
+                        
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .background(
+                        Color("bg-secondary")
+                            .clipShape(CustomBottomRR())
+                            .edgesIgnoringSafeArea(.all)
+                            .frame(height: 96)
+                            .shadow(color: Color(.black).opacity(0.4), radius: 5)
+                    )
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
-                .background(
-                    Color("bg-secondary")
-                        .clipShape(CustomBottomRR())
-                        .edgesIgnoringSafeArea(.all)
-                        .frame(height: 96)
-                        .shadow(color: Color(.black).opacity(0.4), radius: 5)
-                )
+
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .all)
+
     }
     
 }
