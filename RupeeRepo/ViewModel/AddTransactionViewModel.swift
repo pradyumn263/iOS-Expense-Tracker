@@ -26,7 +26,7 @@ class AddTransactionViewModel: ObservableObject {
     init(paymentActivity: TransactionLog?) {
         
         name = paymentActivity?.name ?? ""
-        amount = "\(paymentActivity?.amount ?? 0.0)"
+        amount = "\(paymentActivity?.amount ?? 0)"
         type = paymentActivity?.transactionType ?? TransactionType.expense
         
         self.date = paymentActivity?.date ?? Date()
