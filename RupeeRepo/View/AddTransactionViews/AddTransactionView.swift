@@ -16,6 +16,18 @@ struct CustomTopRR: Shape {
     }
 }
 
+// MARK: - PREPOPULATED CATEGORIES
+struct category {
+    init(_ emoji: String, _ name: String) {
+        self.emoji = emoji
+        self.name = name
+    }
+    var emoji: String
+    var name: String
+}
+
+var listOfCategories: [category] = [category("🛒","Groceries"), category("🍽","Food"), category("⛽️","Petrol"), category("👕", "Clothes")]
+
 
 
 // MARK: - TEXT INPUT FIELD VIEW
@@ -59,13 +71,31 @@ struct FormField: View {
 // MARK: - MAIN VIEW
 struct AddTransactionView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var TransactionViewModel: AddTransactionViewModel
+    
+    var currentTransaction: TransactionLog?
+    
+    init (transaction: TransactionLog? = nil) {
+        self.currentTransaction = transaction
+        self.TransactionViewModel = AddTransactionViewModel(paymentActivity: currentTransaction)
+    }
     
     @State var testString: String = ""
     @State var testAmount: String = ""
     @State var value: Date = Date()
     
-    private func saveContext()
-    {
+    private func saveThisTransaction () {
+       let newTransaction = currentTransaction ?? TransactionLog(context: viewContext)
+        
+        newTransaction.id = UUID()
+        newTransaction.name = TransactionViewModel.name
+        newTransaction.amount = Double(TransactionViewModel.amount)!
+        newTransaction.date = TransactionViewModel.date
+        newTransaction.icon = TransactionViewModel.icon
+        newTransaction.location = TransactionViewModel.location
+        newTransaction.notes = TransactionViewModel.notes
+        newTransaction.type = TransactionViewModel.type.rawValue
+        
         do {
             try viewContext.save()
         } catch {
@@ -109,7 +139,7 @@ struct AddTransactionView: View {
                     
                     // MARK: - FORM INPUT FIELDS
                     VStack {
-                        FormField(fieldName: "Name", iconName: "cart.fill", fieldValue: $testString)
+                        FormField(fieldName: "Name", iconName: "cart.fill", fieldValue: $TransactionViewModel.name)
                             .padding()
                         
                         // Select from option of pre existing names.
@@ -117,104 +147,88 @@ struct AddTransactionView: View {
                         ScrollView (.horizontal) {
                             
                             HStack {
-                                Text("🛒 Groceries")
+                                ForEach(0..<listOfCategories.count) {index in
+                                    Text("\(listOfCategories[index].emoji) \(listOfCategories[index].name)")
                                         .padding()
                                         .background(
                                             RoundedRectangle(cornerRadius: 12)
                                                 .foregroundColor(Color("bg-secondary"))
-                                    )
-                                Text("🍽 Food")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("⛽️ Petrol")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                Text("👕 Clothes")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
+                                        )
+                                        .onTapGesture {
+                                            TransactionViewModel.name = listOfCategories[index].name
+                                            TransactionViewModel.icon = listOfCategories[index].emoji
+                                        }
+                                }
                             }
-                                
-                            
                         }
                         
                         // Select Emoji
                         HStack {
-                            Text("Select Icon (if creating new category")
+                            Text("Select Icon (if creating new category)")
                                 .font(.headline)
                                 .foregroundColor(Color("text-secondary"))
                             Spacer()
                         }
                         .padding(.horizontal)
                         
-                        ScrollView (.horizontal) {
-                            HStack {
-                                Text("🛒")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("🍽")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("👕")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("⛽️")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("👓")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("🏥")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                                
-                                Text("📱")
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .foregroundColor(Color("bg-secondary"))
-                                    )
-                            }
-                        }
+//                        ScrollView (.horizontal) {
+//                            HStack {
+//                                Text("🛒")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("🍽")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("👕")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("⛽️")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("👓")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("🏥")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//
+//                                Text("📱")
+//                                    .padding()
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .foregroundColor(Color("bg-secondary"))
+//                                    )
+//                            }
+//                        }
 
                         
                         HStack {
-                            FormField(fieldName: "Amount", iconName: "indianrupeesign.circle", fieldValue: $testAmount)
+                            FormField(fieldName: "Amount", iconName: "indianrupeesign.circle", fieldValue: $TransactionViewModel.amount)
                                 .padding()
-    //                        FormField(fieldName: "Date", iconName: "calendar", fieldValue: $testAmount)
+                            
                             HStack {
                                 Image(systemName: "calendar")
                                     .font(.title3)
@@ -225,7 +239,7 @@ struct AddTransactionView: View {
                                             .foregroundColor(Color("yellow-dark"))
                                     )
                                 Spacer(minLength: 3)
-                                DatePicker("", selection: $value, displayedComponents: .date)
+                                DatePicker("", selection: $TransactionViewModel.date, displayedComponents: .date)
                                     .padding()
                                     .accentColor(Color("yellow-medium"))
                                     .preferredColorScheme(.dark)
@@ -238,30 +252,38 @@ struct AddTransactionView: View {
                     HStack {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
-                                .foregroundColor(Color("bg-secondary"))
+                                .foregroundColor(TransactionViewModel.type == .expense ?  Color("red-medium") : Color("bg-secondary"))
                             
                             HStack {
                                 Text("📉")
                                 Text("Expense")
                                     .font(.headline)
-                                    .foregroundColor(Color("text-secondary"))
+                                    .foregroundColor(TransactionViewModel.type == .expense ? Color("text-primary") : Color("text-secondary"))
                             }
                             .padding()
+                        }
+                        .onTapGesture {
+                            TransactionViewModel.type = .expense
                         }
                         
                         
                         ZStack {
-                            RoundedRectangle(cornerRadius: 12)                            .foregroundColor(Color("green-medium"))
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundColor(TransactionViewModel.type == .income ? Color("green-medium") : Color(
+                                "bg-secondary"))
                             
                             HStack {
                                 Text("📈")
                                 
                                 Text("Income")
-                                    .foregroundColor(Color("text-primary"))
+                                    .foregroundColor(TransactionViewModel.type == .income ? Color("text-primary") : Color("text-secondary"))
                                     .font(.headline)
                                 
                             }
                             .padding()
+                        }
+                        .onTapGesture {
+                            TransactionViewModel.type = .income
                         }
                         Spacer(minLength: 0)
                     }
@@ -269,16 +291,18 @@ struct AddTransactionView: View {
                     
                     // MARK: - NOTES AND LOCATION
                     VStack {
-                        FormField(fieldName: "Notes (optional)", iconName: "note.text", fieldValue: $testString)
+                        FormField(fieldName: "Notes (optional)", iconName: "note.text", fieldValue: $TransactionViewModel.notes)
                             .padding()
-                        FormField(fieldName: "Location (optional)", iconName: "location.fill.viewfinder", fieldValue: $testAmount)
+                        FormField(fieldName: "Location (optional)", iconName: "location.fill.viewfinder", fieldValue: $TransactionViewModel.location)
                             .padding()
                     }
                     .padding(.horizontal, 5)
                     
                    // MARK: - SUBMIT
                     
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Button(action: {
+                        saveThisTransaction()
+                    }, label: {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(height: 60)
                             .padding()

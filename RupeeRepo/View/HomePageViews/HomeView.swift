@@ -39,10 +39,13 @@ if value.startLocation.x < value.location.x - 24 {
   }
 
 struct HomeView: View {
+
+    @EnvironmentObject var calendarManager: CalendarViewModel
+    
+    var generator = UINotificationFeedbackGenerator()
     var dayFormatter = DateFormatter.getDayFormatter
     var dateFormatter = DateFormatter.getDateFormatter
-    @EnvironmentObject var calendarManager: CalendarViewModel
-    var generator = UINotificationFeedbackGenerator()
+    
     var body: some View {
         VStack {
             HStack (spacing: 6) {
@@ -80,7 +83,9 @@ struct HomeView: View {
             )
             .zIndex(1)
             Spacer(minLength: 0)
-            testView(currDate: calendarManager.currentSelectedDate)
+            
+            
+            SelectedDateOverviewView(dateOfThisView: calendarManager.currentSelectedDate)
                 .padding(.horizontal, 10)
         }
         .animation(.interactiveSpring())
@@ -101,8 +106,27 @@ struct HomeView: View {
     }
 }
 
-struct testView: View {
-    var currDate: Date
+struct SelectedDateOverviewView: View {
+    
+    var dateOfThisView: Date
+    
+    @EnvironmentObject var calendarManager: CalendarViewModel
+    @FetchRequest(sortDescriptors: [])
+    var transactionsList: FetchedResults<TransactionLog>
+    
+    // MARK: - COMPUTED VAR TO GET TODAY'S TRANSACTIONS
+    
+    var todaysTransactions: [TransactionLog] {
+        var result: [TransactionLog] = []
+        for transaction in transactionsList {
+            if transaction.date!.isTheSameDate(as: calendarManager.currentSelectedDate) {
+                result.append(transaction)
+            }
+        }
+        return result
+    }
+    
+    
     var body: some View {
         ScrollView (showsIndicators: false) {
             VStack (spacing: 5) {
@@ -132,97 +156,17 @@ struct testView: View {
                             .bold()
                             .padding(.top)
                             .padding(.leading, 5)
+                            .padding(.bottom)
                         Spacer()
                     }
-                    
-                    ZStack {
-                        RoundedRectangle (cornerRadius: 12)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 80)
-                            .foregroundColor(Color("bg-secondary"))
-                        
-                        HStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 80)
-                                .foregroundColor(Color("bg-secondary"))
-                                .overlay (
-                                    Text("🥳")
-                                        .font(.largeTitle)
-                                )
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .trim(from: 0, to: 0.45)
-                                        .rotation(Angle(degrees: -90))
-                                        .stroke(lineWidth: 3)
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .frame(height: 78)
-                                        .foregroundColor(Color("green-medium"))
-                                )
-                            
-                            Text("Netflix")
-                                .font(.headline)
-                                .foregroundColor(Color("text-primary"))
-                            Spacer()
-                            Text("₹1200")
-                                .foregroundColor(Color("text-primary"))
-                                .bold()
-                                .font(.title3)
-                                .padding()
-                        }
-                    }
-                    
-                    ZStack {
-                        RoundedRectangle (cornerRadius: 12)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 80)
-                            .foregroundColor(Color("bg-secondary"))
-                        
-                        HStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .aspectRatio(1, contentMode: .fit)
-                                .frame(width: 80)
-                                .foregroundColor(Color("bg-secondary"))
-                                .overlay (
-                                    Text("🤪")
-                                        .font(.largeTitle)
-                                )
-                                .overlay (
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .trim(from: 0, to: 0.75)
-                                        .rotation(Angle(degrees: -90))
-                                        .stroke(lineWidth: 3)
-                                        .aspectRatio(1, contentMode: .fit)
-                                        .frame(height: 78)
-                                        .foregroundColor(Color("yellow-medium"))
-                                )
-                            
-                            VStack (alignment: .leading
-                            ) {
-                                Text("Netflix")
-                                    .font(.headline)
-                                    .foregroundColor(Color("text-primary"))
-                                Text("21/04/21 6:33PM")
-                                    .foregroundColor(Color("text-secondary"))
-                                    .font(.caption2)
-                            }
-                            Spacer()
-                            Text("₹1200")
-                                .foregroundColor(Color("text-primary"))
-                                .bold()
-                                .font(.title3)
-                                .padding()
-                        }
+                    // MARK: - LIST OF TODAY'S TRANSACTIONS
+                    ForEach (todaysTransactions) { transaction in
+                        TransactionRowView()
                     }
                     Spacer(minLength: 80)
-                    
                 }
             }
-            
-            
-            
-          
-//            Spacer(minLength: 500)
+        
         }
     }
 }

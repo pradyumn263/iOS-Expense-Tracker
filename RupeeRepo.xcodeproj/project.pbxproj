@@ -17,6 +17,8 @@
 		79263204262C0C75004FA180 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263203262C0C75004FA180 /* HomeView.swift */; };
 		79263206262C0C9F004FA180 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263205262C0C9F004FA180 /* StatsView.swift */; };
 		79263208262C0CBC004FA180 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79263207262C0CBC004FA180 /* AddTransactionView.swift */; };
+		794996512631765B006DFE1C /* AddTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794996502631765B006DFE1C /* AddTransactionViewModel.swift */; };
+		794996532631768E006DFE1C /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794996522631768E006DFE1C /* TransactionType.swift */; };
 		796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */; };
 		796EC94B262AD4A2008692B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796EC94A262AD4A2008692B7 /* ContentView.swift */; };
 		796EC94D262AD4A3008692B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 796EC94C262AD4A3008692B7 /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 		79263203262C0C75004FA180 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		79263205262C0C9F004FA180 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		79263207262C0CBC004FA180 /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		794996502631765B006DFE1C /* AddTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewModel.swift; sourceTree = "<group>"; };
+		794996522631768E006DFE1C /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		796EC945262AD4A2008692B7 /* RupeeRepo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RupeeRepo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RupeeRepoApp.swift; sourceTree = "<group>"; };
 		796EC94A262AD4A2008692B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			children = (
 				79A4F67A26309792004F41CF /* TransactionLog.xcdatamodeld */,
 				79A4F67D2630981C004F41CF /* Persistence.swift */,
+				794996522631768E006DFE1C /* TransactionType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				792631FF262C0944004FA180 /* CalendarViewModel.swift */,
+				794996502631765B006DFE1C /* AddTransactionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -126,11 +132,11 @@
 		796EC947262AD4A2008692B7 /* RupeeRepo */ = {
 			isa = PBXGroup;
 			children = (
+				796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */,
 				792631F4262C08BF004FA180 /* ViewModel */,
 				792631F3262C08B8004FA180 /* View */,
 				792631F2262C08B1004FA180 /* Model */,
 				792631F1262C089F004FA180 /* Extensions */,
-				796EC948262AD4A2008692B7 /* RupeeRepoApp.swift */,
 				796EC94C262AD4A3008692B7 /* Assets.xcassets */,
 				796EC951262AD4A3008692B7 /* Info.plist */,
 				796EC94E262AD4A3008692B7 /* Preview Content */,
@@ -254,6 +260,7 @@
 				79A09E2A263030450044729E /* StatsAccordianView.swift in Sources */,
 				79263200262C0944004FA180 /* CalendarViewModel.swift in Sources */,
 				79A09E20262FFD6D0044729E /* expandingCarouselTestView.swift in Sources */,
+				794996512631765B006DFE1C /* AddTransactionViewModel.swift in Sources */,
 				792631FD262C0901004FA180 /* DateFormatter+getFormatter.swift in Sources */,
 				792631FE262C0901004FA180 /* Calendar+IntervalOf.swift in Sources */,
 				79A4F67C26309792004F41CF /* TransactionLog.xcdatamodeld in Sources */,
@@ -265,6 +272,7 @@
 				792631FC262C0901004FA180 /* NumberFormatter+Currency.swift in Sources */,
 				792631FA262C0901004FA180 /* Calendar+generateDates.swift in Sources */,
 				79263208262C0CBC004FA180 /* AddTransactionView.swift in Sources */,
+				794996532631768E006DFE1C /* TransactionType.swift in Sources */,
 				796EC949262AD4A2008692B7 /* RupeeRepoApp.swift in Sources */,
 				79A09E262630300F0044729E /* TransactionRowView.swift in Sources */,
 				792631FB262C0901004FA180 /* Date+isSameDateAs.swift in Sources */,
